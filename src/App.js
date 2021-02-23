@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 
 import YoutubeCard from '../src/components/YoutubeCard';
-import SearchBar from '../src/components/SearchBar';
-import styled from 'styled-components';
+import IndexPage from '../src/pages/index';
+import styled from 'styled-components'
 
 const Container = styled.div`
   display:flex;
@@ -15,13 +15,7 @@ const Container = styled.div`
 function App() {
   return (
     <>
-          <Container>
-            <SearchBar/>
-            <YoutubeCard/>
-          </Container>
-
-
-
+         <IndexPage/>
     </>
   );
 }

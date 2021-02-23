@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {YOUTUBE_URL} from '../utils/conts/conts';
 
 const Container = styled.div`
   display: flex;
@@ -17,11 +18,11 @@ const Content = styled.div`
  flex-wrap: wrap;
  `
 
-const VideoCard = ({videoURl, videoTitle}) => {
+const VideoCard = ({videoURl, videoTitle, thumB}) => {
     return (
     <>
     <Container>
-        <iframe width="300px" height="200px" src="https://www.youtube.com/embed/iTznx46uiAQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <a href={`${YOUTUBE_URL}${videoURl}`}> <img src={thumb}></img> </a>
         <h2 className='videoTitle'>{videoTitle}</h2>
     </Container>
 

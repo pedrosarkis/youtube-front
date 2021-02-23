@@ -18,15 +18,20 @@ display:flex;
 flex-direction: row;
 `
 
-const SearchBar = () => {
+const SearchBar = ({setQ}) => {
+    const setValue = (e) => {
+        const value = e.target.value;
+        setQ(value);
+    }
     return (
     <>
     <Container>
-        <SearchInput/>
-        <button>Search</button>
+        <SearchInput onChange={setValue}/>
+        <button >Search</button>
     </Container>
     </>
     )
+  
 }
 
 export default SearchBar;
