@@ -4,27 +4,32 @@ import YoutubeCard from '../components/YoutubeCard';
 
 const IndexPage = () => {
     const [q, setQ] = useState('');
-    const [videosFounded, setVideos] = useState();
+    const [videosFounded, setVideos] = useState([]);
 
-    const searchVideos = async  () => {
+    const searchVideos = async  (query) => {
         const settings =  {
             method: 'POST',
             headers: {
-                
+                "Accept": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify(q)
+            body: JSON.stringify(query)
         };
         
-        const response = await fetch('https://localhost:8080/search', settings);
+        const response = await fetch('http://localhost:8080/searchMock', settings);
         const data = await response.json();
         setVideos(data);
     }
-    const cards = data.map((videoData => {
-        return <YoutubeCard videoURl={videoData.url} videoTitle={videoData.title} />
+
+    console.log(videosFounded);
+    
+    
+    const cards = videosFounded.map((videoData => {
+        return <YoutubeCard videoURl={videoData.videoId} videoTitle={videoData.videoTitle} thumb ={videoData.thumb} />
     }))
     return ( 
         <>
-        <SearchBar setQ = {setQ}/>
+        <SearchBar setQ = {setQ} q={q} searchVideos= {searchVideos}/>
         {videosFounded && cards}
         </>
     )

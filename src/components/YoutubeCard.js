@@ -5,25 +5,27 @@ import {YOUTUBE_URL} from '../utils/conts/conts';
 const Container = styled.div`
   display: flex;
   width: 300px;
-  flex-direction: row;
   height: 200px;
-  border: 1px solid red;
   border-radius: 15px;
-  justify-content: space-around;
   color: red;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 2px;
+  
 `;
 
-const Content = styled.div`
- align-self: center;
- flex-wrap: wrap;
- `
+const VideoTitle = styled.h2`
+font-size: 15px;
+margin-top:0px;
+`
 
-const VideoCard = ({videoURl, videoTitle, thumB}) => {
+
+const VideoCard = ({videoURl, videoTitle, thumb}) => {
     return (
     <>
     <Container>
-        <a href={`${YOUTUBE_URL}${videoURl}`}> <img src={thumb}></img> </a>
-        <h2 className='videoTitle'>{videoTitle}</h2>
+          <a href={`${YOUTUBE_URL}${videoURl}`}  target='_blank'> <img src={thumb.url}></img> </a>
+          <VideoTitle className='videoTitle'>{videoTitle}</VideoTitle>
     </Container>
 
     </>

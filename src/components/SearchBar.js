@@ -18,7 +18,7 @@ display:flex;
 flex-direction: row;
 `
 
-const SearchBar = ({setQ}) => {
+const SearchBar = ({setQ, searchVideos, q}) => {
     const setValue = (e) => {
         const value = e.target.value;
         setQ(value);
@@ -27,7 +27,7 @@ const SearchBar = ({setQ}) => {
     <>
     <Container>
         <SearchInput onChange={setValue}/>
-        <button >Search</button>
+        <button onClick={() => {searchVideos({q})}} >Search</button>
     </Container>
     </>
     )
