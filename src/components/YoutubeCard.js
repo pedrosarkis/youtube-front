@@ -24,7 +24,7 @@ const VideoCard = ({videoURl, videoTitle, thumb}) => {
     return (
     <>
     <Container>
-          <a href={`${YOUTUBE_URL}${videoURl}`}  target='_blank'> <img src={thumb.url}></img> </a>
+          <a href={`${YOUTUBE_URL}${videoURl}`}  target='_blank'> <img src={thumb}></img> </a>
           <VideoTitle className='videoTitle'>{videoTitle}</VideoTitle>
     </Container>
 

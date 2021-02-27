@@ -25,7 +25,7 @@ const IndexPage = () => {
     
     
     const cards = videosFounded.map((videoData => {
-        return <YoutubeCard videoURl={videoData.videoId} videoTitle={videoData.videoTitle} thumb ={videoData.thumb} />
+        return <YoutubeCard videoURl={videoData.id} videoTitle={videoData.title} thumb ={videoData.thumbNail.medium.url} />
     }))
     return ( 
         <>
