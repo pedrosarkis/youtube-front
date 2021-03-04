@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 
-import YoutubeCard from '../src/components/YoutubeCard';
+
 import IndexPage from '../src/pages/index';
 import styled from 'styled-components'
 
