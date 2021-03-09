@@ -13,9 +13,13 @@ const ContainerTimeInput = styled.div`
     margin: 1rem;
 `
 
+const WeekDay = styled.label`
+    font-size: 20px;
+`
+
 const IndexPage = () => {
     const [q, setQ] = useState('');
-    const [videosFounded, setVideos] = useState({});
+    const [videos, setVideos] = useState({});
     const [dailyTime, setDailyTime] = useState({});
     
 
@@ -32,13 +36,25 @@ const IndexPage = () => {
         const response = await fetch('http://localhost:8080/searchMock', settings);
         const data = await response.json();
         const videosByTime = handleVideosByDailyTime(data, DAYS_OF_WEEK, dailyTime);
+        setVideos(videosByTime);
         console.log(videosByTime);
-        setVideos(data);
+        
     }
 
-    const cards = videosFounded.items && videosFounded.items.map(({id, title, thumbNail}) => {
+    /* const cards = videos && videosFounded.items.map(({id, title, thumbNail}) => {
         return <VideoCard videoURl={id} videoTitle={title} thumb = {thumbNail.medium.url} />
-    })
+    }) */
+
+    const cards = videos && Object.keys(videos).map(weekDay => {
+        const label = <WeekDay> { weekDay } </WeekDay> 
+        const videoByDay = videos[weekDay].map(({id, title, thumbNail}) => {
+            return <VideoCard videoURl={id} videoTitle={title} thumb = {thumbNail.medium.url} />
+        });
+
+        videoByDay.unshift(label);
+
+        return videoByDay;
+    });
 
     const daysOfWeek = DAYS_OF_WEEK.map(day => {
         return <TimeControl setTime={setDailyTime} dayOfWeek={day} actualTime={dailyTime} />
@@ -50,8 +66,8 @@ const IndexPage = () => {
             <ContainerTimeInput>
                 {daysOfWeek}
             </ContainerTimeInput>
-            {videosFounded.mostUsedWords && <WordBox words={videosFounded.mostUsedWords}/>}
-            {videosFounded && cards}
+          
+            {videos && cards}
         </>
     )
 }

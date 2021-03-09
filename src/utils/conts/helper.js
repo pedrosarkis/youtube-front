@@ -1,27 +1,29 @@
 const handleVideosByDailyTime = ({ items }, daysOfWeek, dailyTime ) => {
-    //const longestVideoDuration = items.reduce((a , b) => Math.max(a.contentDetails.duration, b.contentDetails.duration)).contentDetails.duration;
-    const initialObject = daysOfWeek.reduce((acc, curr) => {
+    const longestDuration = Object.values(dailyTime).reduce((a, b) => Math.max(a, b));
+    
+    const filteredVideos = items.filter(({contentDetails}) => {
+        return contentDetails.duration <= longestDuration;
+    })
+    const videosGroupedByDay = daysOfWeek.reduce((acc, curr) => {
         acc[curr] = [];
         return acc;
     }, {})
 
     let dayIndex = 0;
     let dayDurationLeft = 0;
-    const videosGroupedByDay = items.reduce((acc, curr, index) => {
+     for(let video of filteredVideos) {
         dayDurationLeft = dayDurationLeft || dailyTime[daysOfWeek[dayIndex]];
-        const { duration } = curr.contentDetails;
-        debugger;
-        
-        if((dayDurationLeft - duration) >= 0) {
-            dayDurationLeft = dayDurationLeft - duration;
-            acc[daysOfWeek[dayIndex]].push(curr);
-            return acc;
+        const { duration } = video.contentDetails;
+        const currentDuration = dayDurationLeft - duration;
+        if(currentDuration >= 0) {
+            dayDurationLeft = currentDuration;
+            videosGroupedByDay[daysOfWeek[dayIndex]].push(video);
+            continue;
         }
 
         dayIndex += 1;
         dayDurationLeft = 0;
-        return acc;
-    }, initialObject)
+    }
     return videosGroupedByDay;
 }
 
