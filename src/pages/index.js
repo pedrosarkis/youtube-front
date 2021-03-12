@@ -19,7 +19,7 @@ const WeekDay = styled.label`
 
 const IndexPage = () => {
     const [q, setQ] = useState('');
-    const [videos, setVideos] = useState({});
+    const [videos, setVideos] = useState([]);
     const [dailyTime, setDailyTime] = useState({});
     
 
@@ -33,28 +33,31 @@ const IndexPage = () => {
             body: JSON.stringify(query)
         };
         
-        const response = await fetch('http://localhost:8080/searchMock', settings);
+        const response = await fetch('http://localhost:8080/search', settings);
         const data = await response.json();
-        const videosByTime = handleVideosByDailyTime(data, DAYS_OF_WEEK, dailyTime);
-        setVideos(videosByTime);
+        const videosByTime = handleVideosByDailyTime(data, DAYS_OF_WEEK, dailyTime); 
         console.log(videosByTime);
-        
+        setVideos(videosByTime);
     }
 
     /* const cards = videos && videosFounded.items.map(({id, title, thumbNail}) => {
         return <VideoCard videoURl={id} videoTitle={title} thumb = {thumbNail.medium.url} />
     }) */
-
-    const cards = videos && Object.keys(videos).map(weekDay => {
-        const label = <WeekDay> { weekDay } </WeekDay> 
-        const videoByDay = videos[weekDay].map(({id, title, thumbNail}) => {
-            return <VideoCard videoURl={id} videoTitle={title} thumb = {thumbNail.medium.url} />
-        });
-
-        videoByDay.unshift(label);
-
-        return videoByDay;
-    });
+    
+    const cards = videos?.map((weekIndex) => {
+        return Object.entries(weekIndex).map(([weekDay, videosInDay], index) => (
+          <>
+            <WeekDay> {weekDay} </WeekDay>
+            {videosInDay.map(({ id, title, thumbNail }) => (
+              <VideoCard
+                videoURl={id}
+                videoTitle={title}
+                thumb={thumbNail.medium.url}
+              />
+            ))}
+          </>
+        ));
+      });
 
     const daysOfWeek = DAYS_OF_WEEK.map(day => {
         return <TimeControl setTime={setDailyTime} dayOfWeek={day} actualTime={dailyTime} />
@@ -66,8 +69,8 @@ const IndexPage = () => {
             <ContainerTimeInput>
                 {daysOfWeek}
             </ContainerTimeInput>
-          
-            {videos && cards}
+            {videos.length && cards}
+           
         </>
     )
 }
