@@ -3,13 +3,14 @@ import styled from 'styled-components';
 
 const Container = styled.div`
 display:flex;
-justify-content: space-around;
+justify-content: flex-end;
 `
 const Box = styled.div`
 border-radius: 10px;
 border: 1px solid black;
 box-sizing: border-box;
-padding: 5px 5px;
+padding: 5px 7px;
+margin-left: 10px;
 `
 
 

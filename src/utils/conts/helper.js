@@ -1,8 +1,8 @@
 const handleVideosByDailyTime = ({ items }, daysOfWeek, dailyTime ) => {
     const longestDuration = Object.values(dailyTime).reduce((a, b) => Math.max(a, b));
     
-    const filteredVideos = items.filter(({contentDetails}) => {
-        return contentDetails.duration <= longestDuration;
+    const filteredVideos = items.filter(({contentDetails: { duration }}) => {
+        return duration <= longestDuration;
     })
     const videosGroupedByDay = daysOfWeek.reduce((acc, curr) => {
         acc[curr] = [];
