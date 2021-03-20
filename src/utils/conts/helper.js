@@ -37,6 +37,10 @@ const handleVideosByDailyTime = ({ items }, daysOfWeek, dailyTime ) => {
     return weeksWithVideos;
 }
 
+const handleVideoPagination = (data, itemsPerPage) => {
+    //const totalData = data.
+}   
+
 const clone = (obj) => {
     return JSON.parse(JSON.stringify(obj));
 }
@@ -48,5 +52,6 @@ const resetObj = (obj) => {
 }
 
 module.exports = {
-    handleVideosByDailyTime
+    handleVideosByDailyTime,
+    handleVideoPagination
 }
