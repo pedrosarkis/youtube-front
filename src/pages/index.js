@@ -49,7 +49,7 @@ const IndexPage = () => {
 
     const [mostUsedWords, setMostUsedWords] = useState([]);
 
-    const searchVideos = async  (query) => {
+    const searchVideos = async (query) => {
         const settings =  {
             method: 'POST',
             headers: {
@@ -63,12 +63,13 @@ const IndexPage = () => {
         const data = await response.json();
         setMostUsedWords(data.mostUsedWords)
         const videosByTime = handleVideosByDailyTime(data, DAYS_OF_WEEK, dailyTime);
+        console.log(data);
+        console.log(videosByTime);
         setVideos(videosByTime);
     } 
    
-    const cards = videos?.map((weekIndex, index) => {
-        if(index != currentWeekPage -1) return [];
-        return Object.entries(weekIndex).map(([weekDay, videosInDay]) => (
+    const cards = videos?.slice(currentWeekPage -1, currentWeekPage).map((weekIndex, index) => {
+            return Object.entries(weekIndex).map(([weekDay, videosInDay]) => (
           <>
             <WeekDay> {weekDay} </WeekDay>
             {videosInDay.map(({ id, title, thumbNail }) => (
@@ -81,8 +82,6 @@ const IndexPage = () => {
           </>
         ));
       });
-
-      console.log(videos);
 
     const daysOfWeek = DAYS_OF_WEEK.map(day => {
         return <TimeControl setTime={setDailyTime} dayOfWeek={day} actualTime={dailyTime} />
