@@ -10,12 +10,11 @@ const SearchInput = styled.input`
     padding: 2px 23px 2px 30px;
     outline: 0;
     background-color: #f5f5f5;
-
 `
 const Container = styled.div`
-justify-content:center;
-display:flex;
-flex-direction: row;
+    justify-content:center;
+    display:flex;
+    flex-direction: row;
 `
 
 const SearchBar = ({setQ, searchVideos, q}) => {
@@ -25,10 +24,10 @@ const SearchBar = ({setQ, searchVideos, q}) => {
     }
     return (
     <>
-    <Container>
-        <SearchInput onChange={setValue}/>
-        <button onClick={() => {searchVideos({q})}} >Search</button>
-    </Container>
+        <Container>
+            <SearchInput onChange={setValue}/>
+            <button onClick={() => {searchVideos({q})}} >Search</button>
+        </Container>
     </>
     )
   
