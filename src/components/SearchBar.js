@@ -25,7 +25,7 @@ const SearchBar = ({setQ, searchVideos, q}) => {
     return (
     <>
         <Container>
-            <SearchInput onChange={setValue}/>
+            <SearchInput data-testid="input" onChange={setValue}/>
             <button onClick={() => {searchVideos({q})}} >Search</button>
         </Container>
     </>

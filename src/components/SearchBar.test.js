@@ -9,4 +9,14 @@ describe('SearchBar', () => {
         fireEvent.click(getByText(/^Search$/i));
         expect(onClick).toHaveBeenCalled();
     })
+
+    test('Search Input change value on user typing', () => {
+        const onChangeMock = jest.fn();
+        const { getByTestId } = render(<SearchBar setQ={onChangeMock} searchVideos={() => {}} q='Eminem'/>);
+        const inputField = getByTestId('input');
+       
+        fireEvent.change(inputField, { target: { value: 'Eminem' } });
+
+        expect(onChangeMock).toHaveBeenCalledWith('Eminem');
+    })
 })
